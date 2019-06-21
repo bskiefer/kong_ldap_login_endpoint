@@ -27,6 +27,7 @@ class GlobalParamatersClass():
   LOGINEP_SYNCACL = None
   LOGINEP_JWT_TOKEN_TIMEOUT = None
   LOGINEP_PORT = None
+  LOGINEP_URL = None
 
 
   #Read environment variable or raise an exception if it is missing and there is no default
@@ -60,6 +61,7 @@ class GlobalParamatersClass():
     self.LOGINEP_KONG_ADMINAPI_URL = self.readFromEnviroment(env, 'LOGINEP_KONG_ADMINAPI_URL', None, None, nullValueAllowed=True)
     self.LOGINEP_SYNCACL = self.readFromEnviroment(env, 'LOGINEP_SYNCACL', None, None, nullValueAllowed=True)
     self.LOGINEP_JWT_TOKEN_TIMEOUT = self.readFromEnviroment(env, 'LOGINEP_JWT_TOKEN_TIMEOUT', None, None)
+    self.LOGINEP_URL = self.readFromEnviroment(env, 'LOGINEP_URL', None, None)
     LOGINEP_PORTSTR = self.readFromEnviroment(env, 'LOGINEP_PORT', '80', None)
     try:
       self.LOGINEP_PORT = int(LOGINEP_PORTSTR)
@@ -81,6 +83,7 @@ class GlobalParamatersClass():
     r += 'LOGINEP_KONG_ADMINAPI_URL:' + self.LOGINEP_KONG_ADMINAPI_URL + '\n'
     r += 'LOGINEP_SYNCACL:' + self.LOGINEP_SYNCACL + '\n'
     r += 'LOGINEP_JWT_TOKEN_TIMEOUT:' + self.LOGINEP_JWT_TOKEN_TIMEOUT + '\n'
+    r += 'LOGINEP_URL:' + self.LOGINEP_URL + '\n'
     return r
 
   def getDeveloperMode(self):

@@ -22,6 +22,7 @@ ENV LOGINEP_GROUP_MEMBER_FIELD memberUid
 ENV LOGINEP_KONG_ADMINAPI_URL http://kong:8001
 ENV LOGINEP_SYNCACL group1,group2,group3
 ENV LOGINEP_JWT_TOKEN_TIMEOUT 60
+ENV LOGINEP_URL http://example.com
 
 
 # LOGINEP_VERSION is not definable here as it is read from the VERSION file inside the image
