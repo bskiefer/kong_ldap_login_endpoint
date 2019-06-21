@@ -19,12 +19,19 @@ class ldapClass():
     if password == "":
       return self.falseReturn
 
-    req = requests.post(self.appObj.globalParamObject.LOGINEP_URL, data = {'username': username, 'password': password})
+    req = requests.post(self.appObj.globalParamObject.LOGINEP_URL + '/authenticate', data = {'username': username, 'password': password})
     resp = req.json()
 
-    groups = ['Development']
+    groups = []
 
     if req.status_code == 200 and resp['result'] == True:
+
+      groupReq = requests.get(self.appObj.globalParamObject.LOGINEP_URL + '/' + username + '/groups' )
+      groupResp = groupReq.json()['result']
+
+      for group in groupResp:
+        groups.append(groupResp[group])
+
       return { 'Authed': True, 'Groups': groups}
     else:
       return self.falseReturn
