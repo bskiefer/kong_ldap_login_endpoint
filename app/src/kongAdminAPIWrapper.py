@@ -40,13 +40,26 @@ class kongAdminAPIWrapperClass():
     r = self.c_put('/consumers/' + username, {}, [200, 201])
     resultJSON = json.loads(r.text)
     return resultJSON['id']
+
   def getACLListForConsumer(self,username):
-    r = self.c_get('/consumers/' + username + '/acls', [200])
-    resultJSON = json.loads(r.text)
-    grps = []
-    for grp in resultJSON['data']:
-      grps.append(grp['group'])
+    grps = self.fetchGroups('/consumers/' + username + '/acls', [])
     return grps
+
+  def fetchGroups(self, url, groups):
+    r = self.c_get(url, [200])
+    resultJSON = json.loads(r.text)
+    groups.append(self.addGroups(resultJSON['data']))
+    if resultJSON['next']:
+      groups.append(self.fetchGroups(resultJSON['next'], []))
+    else:
+      return groups
+
+  def addGroups(self, groups):
+    grps = []
+    for grp in groups:
+      grps.append(groups['group'])
+    return grps
+
   def removeacl(self,username,acl):
     r = self.c_delete('/consumers/' + username + '/acls/' + acl, [204])
   def addacl(self,username,acl):
