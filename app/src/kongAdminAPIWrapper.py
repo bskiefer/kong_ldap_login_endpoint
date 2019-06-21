@@ -37,7 +37,7 @@ class kongAdminAPIWrapperClass():
     resultJSON = json.loads(r.text)
     return (True, resultJSON['id'])
   def createConsumer(self,username):
-    r = self.c_put('/consumers/' + username, [200])
+    r = self.c_put('/consumers/' + username, {}, [200, 201])
     resultJSON = json.loads(r.text)
     return resultJSON['id']
   def getACLListForConsumer(self,username):
@@ -51,7 +51,7 @@ class kongAdminAPIWrapperClass():
     r = self.c_delete('/consumers/' + username + '/acls/' + acl, [204])
   def addacl(self,username,acl):
     msgData = { 'group': acl }
-    r = self.c_put('/consumers/' + username + '/acls',msgData, [200])
+    r = self.c_post('/consumers/' + username + '/acls',msgData, [200, 201])
   
   def ensureUserExistsWithACL(self,username, aclList):
     conExists, consumerID = self.consumerExists(username)
