@@ -37,7 +37,7 @@ class kongAdminAPIWrapperClass():
     resultJSON = json.loads(r.text)
     return (True, resultJSON['id'])
   def createConsumer(self,username):
-    r = self.c_put('/consumers/' + username, [201])
+    r = self.c_put('/consumers/' + username, [200])
     resultJSON = json.loads(r.text)
     return resultJSON['id']
   def getACLListForConsumer(self,username):
