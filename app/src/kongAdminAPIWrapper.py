@@ -24,7 +24,7 @@ class kongAdminAPIWrapperClass():
     if r.status_code in expected_responses:
       return r
   def c_post(self,api, msgData,expected_responses):
-    r = requests.put(self.appObj.globalParamObject.LOGINEP_KONG_ADMINAPI_URL + api, data=json.dumps(msgData), headers={'content-type': 'application/json'})
+    r = requests.post(self.appObj.globalParamObject.LOGINEP_KONG_ADMINAPI_URL + api, data=json.dumps(msgData), headers={'content-type': 'application/json'})
     if r.status_code in expected_responses:
       return r
     raise Exception('Unexpected response from post:' + api + ' (' + str(r.status_code) + ')')
