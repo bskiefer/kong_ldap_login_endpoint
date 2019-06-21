@@ -57,7 +57,7 @@ class kongAdminAPIWrapperClass():
   def addGroups(self, groups):
     grps = []
     for grp in groups:
-      grps.append(groups['group'])
+      grps.append(groups[grp])
     return grps
 
   def removeacl(self,username,acl):
