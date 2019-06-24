@@ -48,16 +48,20 @@ class kongAdminAPIWrapperClass():
   def fetchGroups(self, url, groups):
     r = self.c_get(url, [200])
     resultJSON = json.loads(r.text)
-    groups.append(self.addGroups(resultJSON['data']))
+
+    mergedlist = []
+    mergedlist.extend(groups)
+    mergedlist.extend(self.addGroups(resultJSON['data']))
+
     if resultJSON['next']:
-      groups.append(self.fetchGroups(resultJSON['next'], []))
-    else:
-      return groups
+      mergedlist = self.fetchGroups(resultJSON['next'], mergedlist)
+
+    return mergedlist
 
   def addGroups(self, groups):
     grps = []
-    for grp in groups:
-      grps.append(groups[grp])
+    for grp in range(len(groups)):
+      grps.append(groups[grp]["group"])
     return grps
 
   def removeacl(self,username,acl):
